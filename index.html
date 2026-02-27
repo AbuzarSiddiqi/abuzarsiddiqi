@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -35,7 +35,12 @@
         <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
           <span class="theme-icon" id="themeIcon">◐</span>
         </button>
-        <button class="icon-btn menu-btn" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <button
+          class="icon-btn menu-btn"
+          id="menuToggle"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+        >
           <span></span>
           <span></span>
           <span></span>
@@ -50,17 +55,47 @@
           <h1>Abuzar Siddiqi</h1>
           <h2>iOS • Web • AI Applications</h2>
           <p class="lead">
-            Building scalable applications with SwiftUI, React, and AI. Founded a VIT-TBI backed startup and shipped production systems end-to-end.
+            Building scalable applications with SwiftUI, React, and AI. Founded
+            a VIT-TBI backed startup and shipped production systems end-to-end.
           </p>
-          <p class="tagline">"Building production-grade iOS, web, and AI applications"</p>
+          <p class="tagline">
+            "Building production-grade iOS, web, and AI applications"
+          </p>
           <div class="cta-row">
             <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a href="Files/Resume/ABUZARSIDDIQI.pdf" class="btn btn-ghost" download>Download Resume</a>
+            <a
+              href="Files/Resume/ABUZARSIDDIQI.pdf"
+              class="btn btn-ghost"
+              download
+              >Download Resume</a
+            >
           </div>
           <div class="hero-contact-mini">
-            <a href="mailto:abuzarxsiddiqi@gmail.com">abuzarxsiddiqi@gmail.com</a>
+            <a href="mailto:abuzarxsiddiqi@gmail.com"
+              >abuzarxsiddiqi@gmail.com</a
+            >
             <span>•</span>
             <a href="tel:+917561947020">+91-7561947020</a>
+          </div>
+        </div>
+
+        <div class="hero-portrait reveal" id="heroPortrait">
+          <div class="portrait-inner" id="portraitInner">
+            <img
+              class="portrait-base"
+              src="Files/PERSONAL IMAGE/Blazer.png"
+              alt="Abuzar Siddiqi in blazer"
+              draggable="false"
+            />
+            <img
+              class="portrait-reveal"
+              id="portraitReveal"
+              src="Files/PERSONAL IMAGE/Hoodie.png"
+              alt="Abuzar Siddiqi in hoodie"
+              draggable="false"
+            />
+            <canvas class="portrait-mask" id="portraitMask"></canvas>
+            <div class="portrait-shine" id="portraitShine"></div>
           </div>
         </div>
 
@@ -94,10 +129,12 @@
         </div>
         <div class="summary-card reveal">
           <p>
-            Software Developer with production experience across iOS, web, and AI applications using SwiftUI, React, Python, and Firebase.
-            Founded and built KwikCut, a VIT-TBI backed startup, shipping both customer-facing and operational products.
-            Strong in system architecture, rapid execution, and team leadership.
-            Currently seeking Software Engineering, AI, and Full Stack roles.
+            Software Developer with production experience across iOS, web, and
+            AI applications using SwiftUI, React, Python, and Firebase. Founded
+            and built KwikCut, a VIT-TBI backed startup, shipping both
+            customer-facing and operational products. Strong in system
+            architecture, rapid execution, and team leadership. Currently
+            seeking Software Engineering, AI, and Full Stack roles.
           </p>
         </div>
       </section>
@@ -120,15 +157,29 @@
           <div class="exp-grid">
             <div class="exp-content">
               <p>
-                Built a full salon booking ecosystem with an iOS client and a web operations dashboard. Drove product architecture, shipping, and daily execution.
+                Built a full salon booking ecosystem with an iOS client and a
+                web operations dashboard. Drove product architecture, shipping,
+                and daily execution.
               </p>
               <details class="achievements" open>
                 <summary>Key Achievements</summary>
                 <ul>
-                  <li>Built iOS app from scratch: login, booking flow, and push notifications using Swift + Firebase.</li>
-                  <li>Created web dashboard for salon owners with real-time appointment and slot management.</li>
-                  <li>Architected database, auth, and deployment pipeline across mobile and web surfaces.</li>
-                  <li>Led 4 interns through code reviews, mentoring, and development planning.</li>
+                  <li>
+                    Built iOS app from scratch: login, booking flow, and push
+                    notifications using Swift + Firebase.
+                  </li>
+                  <li>
+                    Created web dashboard for salon owners with real-time
+                    appointment and slot management.
+                  </li>
+                  <li>
+                    Architected database, auth, and deployment pipeline across
+                    mobile and web surfaces.
+                  </li>
+                  <li>
+                    Led 4 interns through code reviews, mentoring, and
+                    development planning.
+                  </li>
                 </ul>
               </details>
               <div class="stack-row">
@@ -136,13 +187,21 @@
                 <span>Firebase</span>
                 <span>React</span>
               </div>
-              <button class="btn btn-ghost" id="caseStudyToggle" aria-expanded="false">
+              <button
+                class="btn btn-ghost"
+                id="caseStudyToggle"
+                aria-expanded="false"
+              >
                 View Case Study
               </button>
             </div>
 
             <div class="experience-visuals">
-              <div class="iphone-mockup" role="img" aria-label="KwikCut iOS app mockup">
+              <div
+                class="iphone-mockup"
+                role="img"
+                aria-label="KwikCut iOS app mockup"
+              >
                 <div class="screen">
                   <div class="status-line"></div>
                   <div class="screen-card"></div>
@@ -150,7 +209,11 @@
                   <div class="screen-button"></div>
                 </div>
               </div>
-              <div class="dashboard-shot" role="img" aria-label="KwikCut web dashboard preview">
+              <div
+                class="dashboard-shot"
+                role="img"
+                aria-label="KwikCut web dashboard preview"
+              >
                 <div class="bar"></div>
                 <div class="dash-grid">
                   <span></span><span></span><span></span><span></span>
@@ -162,9 +225,12 @@
           <div class="case-study" id="caseStudy">
             <h4>Case Study: KwikCut Salon Booking Platform</h4>
             <p>
-              Designed as a two-surface product: a customer iOS app for booking and a web dashboard for salon operations.
-              Built a Firebase-backed real-time workflow for booking events, status updates, and notifications.
-              Reduced operational friction by consolidating schedule management, customer intake, and live appointment visibility.
+              Designed as a two-surface product: a customer iOS app for booking
+              and a web dashboard for salon operations. Built a Firebase-backed
+              real-time workflow for booking events, status updates, and
+              notifications. Reduced operational friction by consolidating
+              schedule management, customer intake, and live appointment
+              visibility.
             </p>
           </div>
         </article>
@@ -183,26 +249,60 @@
           <button class="filter-btn" data-filter="ai">AI</button>
         </div>
 
-        <article class="project-spotlight reveal filter-item" data-tags="ai web">
+        <article
+          class="project-spotlight reveal filter-item"
+          data-tags="ai web"
+        >
           <div>
             <p class="eyebrow">January 2026</p>
-            <img class="project-logo" src="Files/LOGOS/KwikLyze_Logo.png" alt="KwikLyze logo" loading="lazy" width="88" height="88" />
+            <img
+              class="project-logo"
+              src="Files/LOGOS/KwikLyze_Logo.png"
+              alt="KwikLyze logo"
+              loading="lazy"
+              width="88"
+              height="88"
+            />
             <h3>Daily AI Companion [KwikLyze]</h3>
             <p>
-              Local-first voice assistant focused on productivity automation and natural language system control.
-              Built for near real-time interaction with offline reliability.
+              Local-first voice assistant focused on productivity automation and
+              natural language system control. Built for near real-time
+              interaction with offline reliability.
             </p>
             <ul>
-              <li>Achieved ~200ms voice-to-action latency for real-time automation workflows.</li>
-              <li>Implemented offline pipeline using Whisper (STT), Vosk (wake-word), and Qwen 2.5 LLM.</li>
-              <li>Added proactive scheduling and routine-based productivity orchestration.</li>
+              <li>
+                Achieved ~200ms voice-to-action latency for real-time automation
+                workflows.
+              </li>
+              <li>
+                Implemented offline pipeline using Whisper (STT), Vosk
+                (wake-word), and Qwen 2.5 LLM.
+              </li>
+              <li>
+                Added proactive scheduling and routine-based productivity
+                orchestration.
+              </li>
             </ul>
             <div class="stack-row">
-              <span>Electron</span><span>Python</span><span>React</span><span>JavaScript</span><span>Qwen 2.5</span><span>Whisper</span><span>Vosk</span>
+              <span>Electron</span><span>Python</span><span>React</span
+              ><span>JavaScript</span><span>Qwen 2.5</span><span>Whisper</span
+              ><span>Vosk</span>
             </div>
             <div class="project-links">
-              <a class="btn btn-primary" href="https://github.com/AbuzarSiddiqi/KwikLyze.git" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="btn btn-ghost" href="https://www.youtube.com/results?search_query=kwiklyze+demo" target="_blank" rel="noreferrer">Demo</a>
+              <a
+                class="btn btn-primary"
+                href="https://github.com/AbuzarSiddiqi/KwikLyze.git"
+                target="_blank"
+                rel="noreferrer"
+                >GitHub</a
+              >
+              <a
+                class="btn btn-ghost"
+                href="https://www.youtube.com/results?search_query=kwiklyze+demo"
+                target="_blank"
+                rel="noreferrer"
+                >Demo</a
+              >
             </div>
           </div>
 
@@ -216,12 +316,20 @@
 
         <div class="project-cluster">
           <div class="cluster-head reveal">
+            <p class="cluster-kicker">Platform Constellation</p>
             <h3>KwikVerse Platform Suite (2024 - 2025)</h3>
             <p>
-              Suite of production-ready web applications built with real-time data handling and cloud infrastructure.
+              Suite of production-ready web applications built with real-time
+              data handling and cloud infrastructure.
             </p>
+            <div class="cluster-metrics">
+              <span>5 live products</span>
+              <span>B2C + B2B workflows</span>
+              <span>Realtime cloud stack</span>
+            </div>
             <div class="stack-row">
-              <span>React</span><span>JavaScript</span><span>Firebase</span><span>Web APIs</span>
+              <span>React</span><span>JavaScript</span><span>Firebase</span
+              ><span>Web APIs</span>
             </div>
           </div>
 
@@ -235,7 +343,13 @@
               rel="noreferrer"
             >
               <span class="app-icon logo-icon gradient-one">
-                <img src="Files/LOGOS/Kwikcut_Logo.png" alt="KwikCut logo" loading="lazy" width="72" height="72" />
+                <img
+                  src="Files/LOGOS/Kwikcut_Logo.png"
+                  alt="KwikCut logo"
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                />
               </span>
               <h4>KwikCut</h4>
               <p>Salon Booking Platform</p>
@@ -256,7 +370,14 @@
               rel="noreferrer"
             >
               <span class="app-icon logo-icon gradient-two">
-                <img class="logo-kwikpdf" src="Files/LOGOS/KwikPdf_logo.jpeg" alt="KwikPDF logo" loading="lazy" width="72" height="72" />
+                <img
+                  class="logo-kwikpdf"
+                  src="Files/LOGOS/KwikPdf_logo.jpeg"
+                  alt="KwikPDF logo"
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                />
               </span>
               <h4>KwikPDF</h4>
               <p>PDF Utilities</p>
@@ -277,7 +398,13 @@
               rel="noreferrer"
             >
               <span class="app-icon logo-icon gradient-three">
-                <img src="Files/LOGOS/Kwikwall_logo.png" alt="KwikWall logo" loading="lazy" width="72" height="72" />
+                <img
+                  src="Files/LOGOS/Kwikwall_logo.png"
+                  alt="KwikWall logo"
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                />
               </span>
               <h4>KwikWall</h4>
               <p>Wallpaper Platform</p>
@@ -298,7 +425,13 @@
               rel="noreferrer"
             >
               <span class="app-icon logo-icon gradient-four">
-                <img src="Files/LOGOS/KwikFry_logo.png" alt="KwikFry logo" loading="lazy" width="72" height="72" />
+                <img
+                  src="Files/LOGOS/KwikFry_logo.png"
+                  alt="KwikFry logo"
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                />
               </span>
               <h4>KwikFry</h4>
               <p>Digital Menu System</p>
@@ -319,7 +452,14 @@
               rel="noreferrer"
             >
               <span class="app-icon logo-icon gradient-five">
-                <img class="logo-kwikmusic" src="Files/LOGOS/Kwikmusic_logo.png" alt="KwikMusic logo" loading="lazy" width="72" height="72" />
+                <img
+                  class="logo-kwikmusic"
+                  src="Files/LOGOS/Kwikmusic_logo.png"
+                  alt="KwikMusic logo"
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                />
               </span>
               <h4>KwikMusic</h4>
               <p>Music Streaming</p>
@@ -330,12 +470,6 @@
               </ul>
               <span class="visit">Visit App ↗</span>
             </a>
-          </div>
-
-          <div class="preview-panel reveal" id="previewPanel">
-            <p class="preview-label">Hover a project icon</p>
-            <h4 id="previewTitle">KwikVerse Preview</h4>
-            <p id="previewText">Interactive project snapshots appear here.</p>
           </div>
         </div>
       </section>
@@ -350,19 +484,22 @@
           <article class="skill-card reveal">
             <h3>Languages</h3>
             <div class="skill-tags">
-              <span>Java</span><span>C++</span><span>C</span><span>Python</span><span>Swift</span><span>JavaScript</span>
+              <span>Java</span><span>C++</span><span>C</span><span>Python</span
+              ><span>Swift</span><span>JavaScript</span>
             </div>
           </article>
           <article class="skill-card reveal">
             <h3>Frameworks & Tools</h3>
             <div class="skill-tags">
-              <span>SwiftUI</span><span>React</span><span>Electron</span><span>Firebase</span><span>Node.js</span><span>Git</span>
+              <span>SwiftUI</span><span>React</span><span>Electron</span
+              ><span>Firebase</span><span>Node.js</span><span>Git</span>
             </div>
           </article>
           <article class="skill-card reveal">
             <h3>AI & ML</h3>
             <div class="skill-tags">
-              <span>Qwen 2.5</span><span>Whisper</span><span>Vosk</span><span>Prompt Engineering</span>
+              <span>Qwen 2.5</span><span>Whisper</span><span>Vosk</span
+              ><span>Prompt Engineering</span>
             </div>
           </article>
           <article class="skill-card reveal">
@@ -374,14 +511,17 @@
           <article class="skill-card reveal">
             <h3>Core CS</h3>
             <div class="skill-tags">
-              <span>DSA</span><span>OOP</span><span>System Design</span><span>Multi-threading</span>
+              <span>DSA</span><span>OOP</span><span>System Design</span
+              ><span>Multi-threading</span>
             </div>
           </article>
           <article class="skill-card reveal" id="certifications">
             <h3>Certification</h3>
             <div class="cert-card">
               <p>Google AI Instructor Certificate</p>
-              <a href="https://www.credly.com" target="_blank" rel="noreferrer">View Credential ↗</a>
+              <a href="https://www.credly.com" target="_blank" rel="noreferrer"
+                >View Credential ↗</a
+              >
             </div>
           </article>
         </div>
@@ -413,33 +553,58 @@
 
           <aside class="contact-info reveal">
             <p class="seeking">
-              Currently seeking opportunities in Software Engineering, AI, and Full Stack Development.
+              Currently seeking opportunities in Software Engineering, AI, and
+              Full Stack Development.
             </p>
             <ul>
               <li>
                 <span>Email</span>
                 <div>
-                  <a href="mailto:abuzarxsiddiqi@gmail.com">abuzarxsiddiqi@gmail.com</a>
-                  <button type="button" class="copy-btn" data-copy="abuzarxsiddiqi@gmail.com">Copy</button>
+                  <a href="mailto:abuzarxsiddiqi@gmail.com"
+                    >abuzarxsiddiqi@gmail.com</a
+                  >
+                  <button
+                    type="button"
+                    class="copy-btn"
+                    data-copy="abuzarxsiddiqi@gmail.com"
+                  >
+                    Copy
+                  </button>
                 </div>
               </li>
               <li>
                 <span>Phone</span>
                 <div>
                   <a href="tel:+917561947020">+91-7561947020</a>
-                  <button type="button" class="copy-btn" data-copy="+91-7561947020">Copy</button>
+                  <button
+                    type="button"
+                    class="copy-btn"
+                    data-copy="+91-7561947020"
+                  >
+                    Copy
+                  </button>
                 </div>
               </li>
               <li>
                 <span>LinkedIn</span>
                 <div>
-                  <a href="https://www.linkedin.com/in/abuzarsiddiqi/" target="_blank" rel="noreferrer">linkedin.com/in/abuzarsiddiqi</a>
+                  <a
+                    href="https://www.linkedin.com/in/abuzarsiddiqi/"
+                    target="_blank"
+                    rel="noreferrer"
+                    >linkedin.com/in/abuzarsiddiqi</a
+                  >
                 </div>
               </li>
               <li>
                 <span>GitHub</span>
                 <div>
-                  <a href="https://github.com/abuzarsiddiqi" target="_blank" rel="noreferrer">github.com/abuzarsiddiqi</a>
+                  <a
+                    href="https://github.com/abuzarsiddiqi"
+                    target="_blank"
+                    rel="noreferrer"
+                    >github.com/abuzarsiddiqi</a
+                  >
                 </div>
               </li>
             </ul>
@@ -449,8 +614,57 @@
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> Abuzar Siddiqi. I build scalable, real-world applications.</p>
+      <p>
+        © <span id="year"></span> Abuzar Siddiqi. I build scalable, real-world
+        applications.
+      </p>
     </footer>
+
+    <div class="iphone-overlay" id="iphoneOverlay" hidden aria-hidden="true">
+      <section
+        class="iphone-window"
+        id="iphoneWindow"
+        role="dialog"
+        aria-label="KwikVerse app preview"
+      >
+        <div class="iphone-toolbar" id="iphoneDragHandle">
+          <p class="iphone-title" id="iphoneTitle">KwikVerse App</p>
+          <div class="iphone-actions">
+            <a
+              class="iphone-open-link"
+              id="iphoneOpenLink"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+              >Open ↗</a
+            >
+            <button
+              class="iphone-close-btn"
+              id="iphoneCloseBtn"
+              type="button"
+              aria-label="Close app preview"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+        <div class="iphone-shell">
+          <div class="iphone-notch" aria-hidden="true"></div>
+          <div class="iphone-screen-wrap">
+            <iframe
+              id="iphoneAppFrame"
+              title="KwikVerse app preview"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            ></iframe>
+          </div>
+          <div class="iphone-home-indicator" aria-hidden="true"></div>
+        </div>
+        <p class="iphone-hint">
+          Drag from header to move. If a site blocks embedding, use Open.
+        </p>
+      </section>
+    </div>
 
     <script src="script.js" defer></script>
   </body>
