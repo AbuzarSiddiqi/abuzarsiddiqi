@@ -1,10 +1,7 @@
 const root = document.documentElement;
 const header = document.querySelector(".site-header");
-const menuToggle = document.getElementById("menuToggle");
-const mainNav = document.getElementById("mainNav");
 const navLinks = Array.from(document.querySelectorAll(".main-nav a"));
 const themeToggle = document.getElementById("themeToggle");
-const themeIcon = document.getElementById("themeIcon");
 const caseStudyToggle = document.getElementById("caseStudyToggle");
 const caseStudy = document.getElementById("caseStudy");
 const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
@@ -20,6 +17,14 @@ const iphoneTitle = document.getElementById("iphoneTitle");
 const iphoneOpenLink = document.getElementById("iphoneOpenLink");
 const iphoneCloseBtn = document.getElementById("iphoneCloseBtn");
 const iphoneAppFrame = document.getElementById("iphoneAppFrame");
+const pdfOverlay = document.getElementById("pdfOverlay");
+const pdfWindow = document.getElementById("pdfWindow");
+const pdfDragHandle = document.getElementById("pdfDragHandle");
+const pdfTitle = document.getElementById("pdfTitle");
+const pdfOpenLink = document.getElementById("pdfOpenLink");
+const pdfCloseBtn = document.getElementById("pdfCloseBtn");
+const pdfFrame = document.getElementById("pdfFrame");
+const pdfLinks = Array.from(document.querySelectorAll('a[href*=".pdf"]'));
 
 const PROFILE = {
   email: "abuzarxsiddiqi@gmail.com"
@@ -35,24 +40,10 @@ if (yearNode) {
   yearNode.textContent = String(new Date().getFullYear());
 }
 
-menuToggle?.addEventListener("click", () => {
-  if (!mainNav) return;
-  const willOpen = !mainNav.classList.contains("open");
-  mainNav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(willOpen));
-});
-
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    mainNav?.classList.remove("open");
-    menuToggle?.setAttribute("aria-expanded", "false");
-  });
-});
-
-themeToggle?.addEventListener("click", () => {
-  const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  setTheme(nextTheme);
-  safeStorageSet("theme", nextTheme);
+themeToggle?.addEventListener("change", () => {
+  if (!(themeToggle instanceof HTMLInputElement)) return;
+  const nextTheme = themeToggle.checked ? "dark" : "light";
+  applyThemeWithReveal(nextTheme);
 });
 
 caseStudyToggle?.addEventListener("click", () => {
@@ -87,20 +78,40 @@ appCards.forEach((card) => {
 });
 
 iphoneCloseBtn?.addEventListener("click", closeIphonePreview);
+pdfCloseBtn?.addEventListener("click", closePdfPreview);
+
+pdfLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (!shouldUsePdfPreview()) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!(link instanceof HTMLAnchorElement)) return;
+    const href = link.getAttribute("href");
+    if (!href || !/\.pdf(\?|#|$)/i.test(href)) return;
+
+    event.preventDefault();
+    openPdfPreview(href, link.textContent?.trim() || "Document");
+  });
+});
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeIphonePreview();
+    closePdfPreview();
   }
 });
 
 iphoneDragHandle?.addEventListener("pointerdown", startIphoneDrag);
+pdfDragHandle?.addEventListener("pointerdown", startPdfDrag);
 window.addEventListener("pointermove", onIphoneDragMove);
+window.addEventListener("pointermove", onPdfDragMove);
 window.addEventListener("pointerup", stopIphoneDrag);
+window.addEventListener("pointerup", stopPdfDrag);
 window.addEventListener("pointercancel", stopIphoneDrag);
+window.addEventListener("pointercancel", stopPdfDrag);
 
 window.addEventListener("resize", () => {
   keepIphoneInViewport();
+  keepPdfInViewport();
 });
 
 window.addEventListener(
@@ -211,9 +222,68 @@ function blinkButton(button, label) {
 function setTheme(mode) {
   const normalized = mode === "dark" ? "dark" : "light";
   root.setAttribute("data-theme", normalized);
-  if (themeIcon) {
-    themeIcon.textContent = normalized === "dark" ? "☀" : "◐";
+  if (themeToggle instanceof HTMLInputElement) {
+    themeToggle.checked = normalized === "dark";
+    themeToggle.setAttribute(
+      "aria-label",
+      normalized === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
   }
+}
+
+function applyThemeWithReveal(nextTheme) {
+  const applyTheme = () => {
+    setTheme(nextTheme);
+    safeStorageSet("theme", nextTheme);
+  };
+
+  if (!(themeToggle instanceof HTMLInputElement)) {
+    applyTheme();
+    return;
+  }
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (typeof document.startViewTransition !== "function" || reduceMotion) {
+    applyTheme();
+    return;
+  }
+
+  const switchContainer = themeToggle
+    .closest(".theme-switch")
+    ?.querySelector(".theme-switch__container");
+  const rect = switchContainer instanceof HTMLElement
+    ? switchContainer.getBoundingClientRect()
+    : themeToggle.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+  const endRadius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y)
+  );
+
+  const transition = document.startViewTransition(() => {
+    applyTheme();
+  });
+
+  transition.ready
+    .then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`
+          ]
+        },
+        {
+          duration: 650,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          pseudoElement: "::view-transition-new(root)"
+        }
+      );
+    })
+    .catch(() => {
+      // ignore transition setup failures and keep the theme change
+    });
 }
 
 function safeStorageGet(key, fallback) {
@@ -233,6 +303,7 @@ function safeStorageSet(key, value) {
 }
 
 let phoneDrag = null;
+let pdfDrag = null;
 
 function openIphonePreview(url, title) {
   if (!iphoneOverlay || !iphoneWindow || !iphoneAppFrame || !iphoneOpenLink || !iphoneTitle) return;
@@ -256,6 +327,38 @@ function closeIphonePreview() {
   iphoneOverlay.hidden = true;
   iphoneOverlay.setAttribute("aria-hidden", "true");
   iphoneAppFrame.src = "about:blank";
+}
+
+function shouldUsePdfPreview() {
+  return window.matchMedia("(min-width: 960px)").matches;
+}
+
+function openPdfPreview(url, title) {
+  if (!pdfOverlay || !pdfWindow || !pdfFrame || !pdfOpenLink || !pdfTitle) return;
+  if (!shouldUsePdfPreview()) {
+    window.open(url, "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  pdfTitle.textContent = title || "Document";
+  pdfOpenLink.href = url;
+  pdfFrame.src = url;
+
+  pdfOverlay.hidden = false;
+  pdfOverlay.setAttribute("aria-hidden", "false");
+
+  if (!pdfWindow.dataset.positioned) {
+    positionPdfDefault();
+  } else {
+    keepPdfInViewport();
+  }
+}
+
+function closePdfPreview() {
+  if (!pdfOverlay || !pdfFrame) return;
+  pdfOverlay.hidden = true;
+  pdfOverlay.setAttribute("aria-hidden", "true");
+  pdfFrame.src = "about:blank";
 }
 
 function startIphoneDrag(event) {
@@ -294,6 +397,42 @@ function stopIphoneDrag(event) {
   phoneDrag = null;
 }
 
+function startPdfDrag(event) {
+  if (!pdfWindow || event.button !== 0) return;
+  if (event.target instanceof Element && event.target.closest(".pdf-actions")) return;
+
+  const rect = pdfWindow.getBoundingClientRect();
+  pdfDrag = {
+    pointerId: event.pointerId,
+    offsetX: event.clientX - rect.left,
+    offsetY: event.clientY - rect.top
+  };
+
+  pdfWindow.classList.add("dragging");
+  pdfWindow.dataset.positioned = "true";
+  pdfDragHandle?.setPointerCapture(event.pointerId);
+}
+
+function onPdfDragMove(event) {
+  if (!pdfDrag || !pdfWindow || pdfDrag.pointerId !== event.pointerId) return;
+
+  const rect = pdfWindow.getBoundingClientRect();
+  const bounds = getPhoneBounds(rect.width, rect.height);
+  const nextLeft = clamp(event.clientX - pdfDrag.offsetX, bounds.minLeft, bounds.maxLeft);
+  const nextTop = clamp(event.clientY - pdfDrag.offsetY, bounds.minTop, bounds.maxTop);
+
+  setPdfPosition(nextLeft, nextTop);
+}
+
+function stopPdfDrag(event) {
+  if (!pdfDrag || pdfDrag.pointerId !== event.pointerId) return;
+  pdfWindow?.classList.remove("dragging");
+  if (pdfDragHandle?.hasPointerCapture(event.pointerId)) {
+    pdfDragHandle.releasePointerCapture(event.pointerId);
+  }
+  pdfDrag = null;
+}
+
 function positionIphoneDefault() {
   if (!iphoneWindow) return;
   const rect = iphoneWindow.getBoundingClientRect();
@@ -312,6 +451,25 @@ function keepIphoneInViewport() {
   setIphonePosition(left, top);
 }
 
+function positionPdfDefault() {
+  if (!pdfWindow) return;
+  const rect = pdfWindow.getBoundingClientRect();
+  const bounds = getPhoneBounds(rect.width, rect.height);
+  const left = clamp((window.innerWidth - rect.width) / 2, bounds.minLeft, bounds.maxLeft);
+  const top = clamp(82, bounds.minTop, bounds.maxTop);
+  setPdfPosition(left, top);
+  pdfWindow.dataset.positioned = "true";
+}
+
+function keepPdfInViewport() {
+  if (!pdfWindow || pdfOverlay?.hidden) return;
+  const rect = pdfWindow.getBoundingClientRect();
+  const bounds = getPhoneBounds(rect.width, rect.height);
+  const left = clamp(rect.left, bounds.minLeft, bounds.maxLeft);
+  const top = clamp(rect.top, bounds.minTop, bounds.maxTop);
+  setPdfPosition(left, top);
+}
+
 function getPhoneBounds(width, height) {
   const pad = 8;
   return {
@@ -327,6 +485,13 @@ function setIphonePosition(left, top) {
   iphoneWindow.style.left = `${left}px`;
   iphoneWindow.style.top = `${top}px`;
   iphoneWindow.style.right = "auto";
+}
+
+function setPdfPosition(left, top) {
+  if (!pdfWindow) return;
+  pdfWindow.style.left = `${left}px`;
+  pdfWindow.style.top = `${top}px`;
+  pdfWindow.style.right = "auto";
 }
 
 function clamp(value, min, max) {
