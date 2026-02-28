@@ -1034,6 +1034,111 @@ a {
   background: #d8f0ec;
 }
 
+.expo-carousels-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.startup-expo-gallery {
+  margin-top: 0;
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+  background: var(--card-strong);
+  padding: 0.65rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.expo-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.expo-carousel-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.expo-carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.expo-carousel-slide img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  background: var(--card);
+}
+
+.expo-carousel-slide.landscape img {
+  object-fit: cover;
+}
+
+.expo-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--card-strong);
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 2;
+  backdrop-filter: blur(6px);
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.expo-carousel-btn:hover {
+  opacity: 1;
+  background: var(--primary-soft);
+}
+
+.expo-carousel-prev {
+  left: 0.35rem;
+}
+
+.expo-carousel-next {
+  right: 0.35rem;
+}
+
+.expo-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.32rem;
+  padding-top: 0.4rem;
+}
+
+.expo-carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  padding: 0;
+}
+
+.expo-carousel-dot.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: scale(1.25);
+}
+
 .iphone-mockup,
 .dashboard-shot {
   border: 1px solid var(--line);
@@ -2110,6 +2215,10 @@ textarea {
 }
 
 @media (max-width: 759px) {
+  .expo-carousels-row {
+    grid-template-columns: 1fr;
+  }
+
   .startup-media img {
     height: 200px;
   }
